@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
-double sliderValue = 0.1;
-var screenHeight;
-var screenWidth;
-double barHeight;
-double barWidth;
+double sliderValue = 0;
+double screenHeight = 0;
+double screenWidth = 0;
+double barHeight = 0;
+double barWidth = 0;
+double appbarHeight = 0;
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    appbarHeight = AppBar().preferredSize.height;
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("note de jean-fe"),
-      // ),
+      appBar: AppBar(
+        title: Text("note de jean-fe"),
+      ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -34,12 +36,13 @@ class NoteSlider extends StatefulWidget {
 class _NoteSliderState extends State<NoteSlider> {
   @override
   Widget build(BuildContext context) {
+    print(((screenHeight - appbarHeight) / screenHeight));
     return Row(children: [
       RotatedBox(
         quarterTurns: -1,
         child: Slider(
-            min: 0.01,
-            max: 1,
+            min: 0.0,
+            max: ((screenHeight - appbarHeight - barHeight) / screenHeight),
             value: sliderValue,
             label: sliderValue.round().toString(),
             onChanged: (double value) {
@@ -53,7 +56,7 @@ class _NoteSliderState extends State<NoteSlider> {
           MyGradient(),
           Positioned(
             child: MyBarr(),
-            bottom: screenHeight * sliderValue - barHeight,
+            bottom: (screenHeight * sliderValue),
           ),
         ],
       )
