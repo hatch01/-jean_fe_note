@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'NameDrawer.dart';
+
+
 double sliderValue = 0;
 double screenHeight = 0;
 double screenWidth = 0;
@@ -13,6 +16,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     appbarHeight = kToolbarHeight;
     return Scaffold(
+      drawer: Drawer(
+        child: NameDrawer(),
+      ),
       appBar: AppBar(
         title: Text("note de jean-fe"),
       ),
@@ -38,7 +44,8 @@ class _NoteSliderState extends State<NoteSlider> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height -
         Scaffold.of(context).appBarMaxHeight;
-
+    barHeight = screenHeight / 70;
+    barWidth = screenWidth / 3;
     return Row(children: [
       RotatedBox(
         quarterTurns: -1,
@@ -88,8 +95,6 @@ class MyGradient extends StatelessWidget {
 class MyBarr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    barHeight = screenHeight / 70;
-    barWidth = screenWidth / 3;
     return Container(
       height: barHeight,
       width: barWidth,
