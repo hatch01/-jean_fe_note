@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jean_fe_note/front/newUser.dart';
 
+import '../back/user.dart';
 import 'NameDrawer.dart';
-
 
 double sliderValue = 0;
 double screenHeight = 0;
@@ -11,10 +12,23 @@ double barHeight = 0;
 double barWidth = 0;
 double appbarHeight = 0;
 
+class Init extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    if (StorageService().isUser) {
+      return Home();
+    } else {
+      print("new");
+      return newUser(context, first: true);
+    }
+  }
+}
+
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     appbarHeight = kToolbarHeight;
+
     return Scaffold(
       drawer: Drawer(
         child: NameDrawer(),

@@ -1,87 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:jean_fe_note/back/user.dart';
+import 'package:jean_fe_note/front/home.dart';
 
-var list = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-];
+import 'newUser.dart';
 
 class NameDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Name(),
-      NewUser(),
+      NewUserButton(),
     ]);
   }
 }
 
 class Name extends StatelessWidget {
-  var namelist = List<Widget>();
+  var namelistWidget = List<Widget>();
+  List<String> nameList;
+  bool isCompleted = false;
 
   @override
   Widget build(BuildContext context) {
-    for (var i in list) {
-      namelist.add(Text(i));
+    nameList = StorageService().userList;
+    print("nameList : $nameList");
+    for (var i in nameList) {
+      namelistWidget.add(MaterialButton(
+        onPressed: () {
+          print("pressed");
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(Icons.person),
+            SizedBox(
+              width: screenWidth / 20,
+            ),
+            Text(i),
+          ],
+        ),
+      ));
     }
     return Expanded(
       child: ListView(
-        children: namelist,
+        children: namelistWidget,
       ),
     );
   }
 }
 
-class NewUser extends StatelessWidget {
+class NewUserButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -89,13 +57,21 @@ class NewUser extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: MaterialButton(
+          padding: EdgeInsets.all(0),
+          elevation: 0,
           color: Colors.white,
-          child: Text(
-            "something",
-            style: TextStyle(fontSize: 50),
-          ),
+          child: Row(children: [
+            Icon(Icons.add),
+            Text(
+              "Ajouter un nouvelle utilisateur",
+              //style: TextStyle(fontSize: 50),
+            ),
+          ]),
           onPressed: () {
-            print("pressed");
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => newUser(context),
+            );
           },
         ),
       ),
