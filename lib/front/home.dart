@@ -16,7 +16,9 @@ class Init extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (StorageService().isUser) {
-      return Home();
+      List<String> userList = StorageService().userList;
+      String name = userList[0];
+      return Home(name);
     } else {
       print("new");
       return newUser(context, first: true);
@@ -25,21 +27,26 @@ class Init extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
+  String Username;
+
+  Home(this.Username);
+
   @override
   Widget build(BuildContext context) {
     appbarHeight = kToolbarHeight;
+    print(Username);
 
     return Scaffold(
       drawer: Drawer(
         child: NameDrawer(),
       ),
       appBar: AppBar(
-        title: Text("note de jean-fe"),
+        title: Text(Username),
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          NoteSlider(),
+          NoteSlider(Username),
         ],
       ),
     );
@@ -48,11 +55,19 @@ class Home extends StatelessWidget {
 
 class NoteSlider extends StatefulWidget {
   @override
+  String Username;
+
+  NoteSlider(this.Username);
+
   // const NoteChanger({Key? key}) : super(key: key);
-  _NoteSliderState createState() => _NoteSliderState();
+  _NoteSliderState createState() => _NoteSliderState(Username);
 }
 
 class _NoteSliderState extends State<NoteSlider> {
+  String Username;
+
+  _NoteSliderState(this.Username);
+
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
@@ -60,6 +75,7 @@ class _NoteSliderState extends State<NoteSlider> {
         Scaffold.of(context).appBarMaxHeight;
     barHeight = screenHeight / 70;
     barWidth = screenWidth / 3;
+    sliderValue = StorageService().getNote(Username);
     return Row(children: [
       RotatedBox(
         quarterTurns: -1,
@@ -71,6 +87,7 @@ class _NoteSliderState extends State<NoteSlider> {
             onChanged: (double value) {
               setState(() {
                 sliderValue = value;
+                StorageService().setNote(Username, sliderValue);
               });
             }),
       ),

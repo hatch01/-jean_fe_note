@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constant.dart';
@@ -49,12 +50,15 @@ class StorageService {
     if (_service == null) {
       print("creating");
 
-      var _ = StorageService(); //Creates a local instance of service
+      var _tempClass = StorageService(); //Creates a local instance of service
       /* Creates an instance of Shared Preferences*/
 
-      await _._getInstance();
-
-      _service = _;
+      await _tempClass._getInstance();
+      if (kDebugMode) {
+        print("in debug mode");
+        _pref.remove(userListID);
+      }
+      _service = _tempClass;
     }
     print("return");
     return _service;
@@ -82,7 +86,44 @@ class StorageService {
     } else {
       nameList = [];
     }
-    nameList.add(name);
+    if(nameList.contains(name)){
+      print("there is already a user with this name");
+    }else {
+      nameList.add(name);
+      _pref.setDouble(name, defaultNote);
+    }
     _pref.setStringList(userListID, nameList);
   }
+  void deletingUser(String name) {
+    List<String> nameList;
+    if (_pref.containsKey(userListID)) {
+      nameList = _pref.getStringList(userListID);
+      if (nameList.contains(name)){
+        nameList.remove(name);
+        _pref.setStringList(userListID, nameList);
+      }else{
+        print("user not in the list");
+      }
+    } else {
+      print("no name list");
+    }
+  }
+
+  double getNote(String user) {
+    if (_pref.containsKey(user)) {
+      return _pref.getDouble(user);
+    } else {
+      print("user does not exist");
+      return 0;
+    }
+  }
+  
+  void setNote(String user, double value){
+    if (_pref.containsKey(user)) {
+      _pref.setDouble(user, value);
+    } else {
+      print("user does not exist");
+    }
+  }
+  
 }

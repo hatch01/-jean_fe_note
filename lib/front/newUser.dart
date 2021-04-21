@@ -3,9 +3,11 @@ import 'package:jean_fe_note/back/user.dart';
 import 'package:jean_fe_note/front/home.dart';
 
 String name;
-var myKey = GlobalKey<FormState>();
+// var myKey = GlobalKey<FormState>();
+GlobalKey<FormState> myKey;
 
-Widget newUser(BuildContext context,{ bool first = false}) {
+Widget newUser(BuildContext context, {bool first = false}) {
+  myKey = GlobalKey<FormState>();
   return new AlertDialog(
     title: const Text('Nouveau utilisateur'),
     content: Form(
@@ -34,17 +36,14 @@ Widget newUser(BuildContext context,{ bool first = false}) {
   );
 }
 
-void submit(BuildContext context,{ bool first = false}) {
+void submit(BuildContext context, {bool first = false}) {
   if (myKey.currentState.validate()) {
     print(name);
     StorageService().creatingUser(name);
-    if(!first) {
-      Navigator.of(context).pop();
-    }else{
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
-    }
+    myKey = null;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Home(name)),
+    );
   }
 }

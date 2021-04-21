@@ -4,9 +4,7 @@ import 'package:jean_fe_note/back/user.dart';
 import 'front/home.dart';
 
 Future<void> main() async {
-  // SharedPrefs().init();
-  // sharedPrefs.init();
-  // initData();
+  WidgetsFlutterBinding.ensureInitialized();
   await StorageService.createInstance();
   runApp(
     MyApp(),

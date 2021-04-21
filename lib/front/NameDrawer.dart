@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:jean_fe_note/back/user.dart';
 import 'package:jean_fe_note/front/home.dart';
 
@@ -26,7 +27,18 @@ class Name extends StatelessWidget {
     for (var i in nameList) {
       namelistWidget.add(MaterialButton(
         onPressed: () {
-          print("pressed");
+          print("pressed : $i");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Home(i)),
+          );
+        },
+        onLongPress: () {
+          print("long pressed");
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => deleteUser(i),
+          );
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,6 +86,46 @@ class NewUserButton extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class deleteUser extends StatelessWidget {
+  String userName;
+
+  deleteUser(this.userName);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text("voulez vous vraiment supprimer cet utilisateur"),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("non"),
+            color: Colors.green,
+          ),
+          MaterialButton(
+            onPressed: () {
+              List<String> userList = StorageService().userList;
+              int userIndex = userList.indexOf(userName);
+              userIndex--;
+              StorageService().deletingUser(userName);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Home(userList[userIndex])),
+              );
+            },
+            child: Text("oui"),
+            color: Colors.red,
+          ),
+        ],
       ),
     );
   }
