@@ -114,13 +114,26 @@ class deleteUser extends StatelessWidget {
             onPressed: () {
               List<String> userList = StorageService().userList;
               int userIndex = userList.indexOf(userName);
-              userIndex--;
+              if (userIndex > 0) {
+                userIndex--;
+              } else {
+                userIndex = 0;
+              }
               StorageService().deletingUser(userName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Home(userList[userIndex])),
-              );
+              userList = StorageService().userList;
+              print("userList : $userList");
+              if (userList.isNotEmpty) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Home(userList[userIndex])),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => newUser(context),
+                );
+              }
             },
             child: Text("oui"),
             color: Colors.red,
