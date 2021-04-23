@@ -3,127 +3,112 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constant.dart';
 
-// SharedPreferences data;
-//
-// void initData() async {
-//   if (data == null) {
-//     data = await SharedPreferences.getInstance();
-//   }
-//   if (kDebugMode) {
-//     data.remove(userListID);
-//   }
-//   data.remove(userListID);
-// }
-//
-// Future<List<String>> userList() async {
-//   await initData();
-//   return data.getStringList(userListID);
-// }
-//
-// Future<bool> isUser() async {
-//   bool retour;
-//   await initData();
-//   retour = data.containsKey("userList");
-//   // print(data);
-//   // print(retour);
-//   return retour;
-// }
-//
-// void creatingUser(String name) {
-//   List<String> nameList;
-//   if (data.containsKey(userListID)) {
-//     nameList = data.getStringList(userListID);
-//   } else {
-//     nameList = [];
-//   }
-//   nameList.add(name);
-//   data.setStringList(userListID, nameList);
-// }
-
+//the service to store all the data in a permanent database
 class StorageService {
-  static StorageService _service;
-  static SharedPreferences _pref;
+  static StorageService _service; //the service
+  static SharedPreferences _pref; //the object to manipulate database
 
   static Future<StorageService> createInstance() async {
-    print("create instance");
+    //creating instance
+    print("create instance"); //debug
 
     if (_service == null) {
-      print("creating");
+      //if there is no servuce
+      print("creating"); //debug
 
       var _tempClass = StorageService(); //Creates a local instance of service
       /* Creates an instance of Shared Preferences*/
-
       await _tempClass._getInstance();
       if (kDebugMode) {
-        print("in debug mode");
-        _pref.remove(userListID);
+        //if in debug
+        print("in debug mode"); //debug
+        _pref.remove(userListID); //clean the database
       }
-      _service = _tempClass;
+      _service = _tempClass; //store the brand  new service
     }
-    print("return");
-    return _service;
+    print("return"); //debug
+    return _service; //return the service
   }
 
   void _getInstance() async {
-    _pref = await SharedPreferences.getInstance();
+    //fonc to create an instance of the sharedpref lib
+    _pref = await SharedPreferences.getInstance(); //create the instance
   }
 
   bool get isUser {
-    print("isUser");
-    print(_pref.containsKey(userListID));
-    return _pref.containsKey(userListID);
+    //getter to know if there is users
+    print("isUser"); //debug
+    print(_pref.containsKey(userListID)); //debug
+    return _pref.containsKey(userListID); //return if there is users
   }
 
   List<String> get userList {
-    print(_pref.getStringList(userListID));
-    return _pref.getStringList(userListID);
+    //getter to get the userlist
+    print(_pref.getStringList(userListID)); //debug
+    return _pref.getStringList(userListID); //return the list
   }
 
   void creatingUser(String name) {
-    List<String> nameList;
+    //fonc to create a new user
+    List<String> nameList; //list to store the user list
     if (_pref.containsKey(userListID)) {
-      nameList = _pref.getStringList(userListID);
+      //if there is a list of user
+      nameList =
+          _pref.getStringList(userListID); //store the user list in the var
     } else {
-      nameList = [];
+      //if there is no userlist
+      nameList = []; //store a blank list
     }
-    if(nameList.contains(name)){
-      print("there is already a user with this name");
-    }else {
-      nameList.add(name);
-      _pref.setDouble(name, defaultNote);
+    if (nameList.contains(name)) {
+      //if the user already exist
+      print("there is already a user with this name"); //debug
+    } else {
+      //if the user doesn't exist
+      nameList.add(name); //add the user to the list
+      _pref.setDouble(name, defaultNote); //write the note of the new user
     }
-    _pref.setStringList(userListID, nameList);
+    _pref.setStringList(userListID, nameList); //write the new list
   }
+
   void deletingUser(String name) {
-    List<String> nameList;
+    //fonc to delete a user
+    List<String> nameList; //list to store the user list
     if (_pref.containsKey(userListID)) {
-      nameList = _pref.getStringList(userListID);
-      if (nameList.contains(name)){
-        nameList.remove(name);
-        _pref.setStringList(userListID, nameList);
-      }else{
-        print("user not in the list");
+      //if there is a list of user
+      nameList =
+          _pref.getStringList(userListID); //store the user list in the var
+      if (nameList.contains(name)) {
+        //if the name is in the list(yes it's double check)
+        nameList.remove(name); //delete the user from the local list
+        _pref.setStringList(userListID, nameList); //write the new list
+      } else {
+        print("user not in the list"); //debug
       }
     } else {
-      print("no name list");
+      print("no name list"); //debug
     }
   }
 
   double getNote(String user) {
+    //func to get the note of a person
     if (_pref.containsKey(user)) {
-      return _pref.getDouble(user);
+      //if the user exist
+      return _pref.getDouble(user); //return his note
     } else {
-      print("user does not exist");
-      return 0;
+      //if the user doesn't exist
+      print("user does not exist"); //debug
+      return 0; //return 0
     }
   }
-  
-  void setNote(String user, double value){
+
+  void setNote(String user, double value) {
+    //func to set note
     if (_pref.containsKey(user)) {
-      _pref.setDouble(user, value);
+      //if the user exist
+      _pref.setDouble(user, value); //set the new note
     } else {
-      print("user does not exist");
+      //if the user doesn't exist
+      print("user does not exist"); //debug
     }
   }
-  
 }
