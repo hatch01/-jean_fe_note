@@ -22,7 +22,7 @@ class StorageService {
       if (kDebugMode) {
         //if in debug
         print("in debug mode"); //debug
-        _pref.remove(userListID); //clean the database
+        // _pref.remove(userListID); //clean the database
       }
       _service = _tempClass; //store the brand  new service
     }
@@ -91,7 +91,7 @@ class StorageService {
 
   double getNote(String user) {
     //func to get the note of a person
-    if (_pref.containsKey(user)) {
+    if (userExist(user)) {
       //if the user exist
       return _pref.getDouble(user); //return his note
     } else {
@@ -103,7 +103,7 @@ class StorageService {
 
   void setNote(String user, double value) {
     //func to set note
-    if (_pref.containsKey(user)) {
+    if (userExist(user)) {
       //if the user exist
       _pref.setDouble(user, value); //set the new note
     } else {
@@ -111,4 +111,13 @@ class StorageService {
       print("user does not exist"); //debug
     }
   }
+
+  bool userExist(String name){
+    if (_pref.containsKey(name)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }

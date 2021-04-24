@@ -7,10 +7,8 @@ import 'note_edition.dart';
 
 double sliderValue = 0;
 double screenHeight = 0;
-double screenWidth = 0;
-double barHeight = 0;
-double barWidth = 0;
 double appbarHeight = 0;
+double screenWidth = 0.0;
 
 class Init extends StatelessWidget {
   @override
