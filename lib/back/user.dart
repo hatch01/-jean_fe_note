@@ -81,6 +81,7 @@ class StorageService {
         //if the name is in the list(yes it's double check)
         nameList.remove(name); //delete the user from the local list
         _pref.setStringList(userListID, nameList); //write the new list
+        _pref.remove(name);
       } else {
         print("user not in the list"); //debug
       }
@@ -93,7 +94,7 @@ class StorageService {
     //func to get the note of a person
     if (userExist(user)) {
       //if the user exist
-      return _pref.getDouble(user); //return his note
+      return invertNote(_pref.getDouble(user)); //return his note
     } else {
       //if the user doesn't exist
       print("user does not exist"); //debug
@@ -105,19 +106,22 @@ class StorageService {
     //func to set note
     if (userExist(user)) {
       //if the user exist
-      _pref.setDouble(user, value); //set the new note
+      _pref.setDouble(user, invertNote(value)); //set the new note
     } else {
       //if the user doesn't exist
       print("user does not exist"); //debug
     }
   }
 
-  bool userExist(String name){
-    if (_pref.containsKey(name)){
+  double invertNote(double note) {
+    return 1 - note;
+  }
+
+  bool userExist(String name) {
+    if (_pref.containsKey(name)) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
-
 }

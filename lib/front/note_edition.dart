@@ -1,5 +1,9 @@
 import 'package:dotted_line/dotted_line.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jean_fe_note/back/user.dart';
 import 'package:jean_fe_note/front/init.dart';
 
@@ -59,18 +63,60 @@ class _NoteEditorState extends State<NoteEditor> {
 
   @override
   Widget build(BuildContext context) {
+    sliderWidth = screenWidth / 4; //calculate the width of slider
+    sliderHeight = screenHeight * 0.9;
     screenWidth = MediaQuery.of(context).size.width; //store the width of screen
     screenHeight = MediaQuery.of(context).size.height -
         Scaffold.of(context).appBarMaxHeight; //store the height of screen
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        commentaireVague(),
-        Stack(
-          children: [
-            slider(context),
-            humourAlexis(),
-          ],
-        )
+        Expanded(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(
+                  width: (screenWidth / 2) - (sliderWidth / 2),
+                  child: commentaireVague()),
+              SizedBox(
+                width: sliderWidth,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: (screenHeight - sliderHeight) / 2,
+                      child: Text(
+                        "Safe",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                      ),
+                    ),
+                    Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        slider(context),
+                        humourAlexis(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                  width: (screenWidth / 2) - (sliderWidth / 2),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Humour\nd'Alexis",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -78,80 +124,76 @@ class _NoteEditorState extends State<NoteEditor> {
   Widget slider(BuildContext context) {
     position = StorageService()
         .getNote(username); //begin with the position in the storage
-    sliderWidth = screenWidth / 4; //calculate the width of slider
-    sliderHeight = screenHeight * 0.9;
 //initialise the value of the slider to the stored value
-    return Align(
-      alignment: Alignment.center, //center the slider
-      child: ClipRRect(
-        //user cliprect to reound slider
-        borderRadius: BorderRadius.vertical(
-            top: Radius.circular(180), bottom: Radius.circular(180)),
-        //let's round it
-        child: GestureDetector(
-          //gesture detectore to get the interaction
-          onVerticalDragStart: _onVerticalDragStartHandler,
-          //func to start when vertical drag start
-          onVerticalDragUpdate: _onDragUpdateHandler,
-          //func to start when vertical drag update
-          child: Column(
-              //suer column to define the size of the slier for the ClipRRect
-              mainAxisSize: MainAxisSize.min,
-              //use min size to ensure no bug with ClipRRect
-              children: [
-                Stack(children: [
-                  //stack grey and gradient
-                  Container(
-                    //container for gradient
-                    height: sliderHeight, //max height
-                    width: sliderWidth, //slider width
-                    decoration: BoxDecoration(
-                      //decoration to integrate gradient
-                      gradient: customGradient(), //the gradient
-                    ),
+    return ClipRRect(
+      //user cliprect to reound slider
+      borderRadius: BorderRadius.vertical(
+          top: Radius.circular(180), bottom: Radius.circular(180)),
+      //let's round it
+      child: GestureDetector(
+        //gesture detectore to get the interaction
+        onVerticalDragStart: _onVerticalDragStartHandler,
+        //func to start when vertical drag start
+        onVerticalDragUpdate: _onDragUpdateHandler,
+        //func to start when vertical drag update
+        child: Column(
+            //suer column to define the size of the slier for the ClipRRect
+            mainAxisSize: MainAxisSize.min,
+            //use min size to ensure no bug with ClipRRect
+            children: [
+              Stack(children: [
+                //stack grey and gradient
+                Container(
+                  //container for gradient
+                  height: sliderHeight, //max height
+                  width: sliderWidth, //slider width
+                  decoration: BoxDecoration(
+                    //decoration to integrate gradient
+                    gradient: customGradient(), //the gradient
                   ),
-                  Container(
-                    //container for grey
-                    height: position,
-                    //use the calculated height (to hide gradient)
-                    width: sliderWidth,
-                    //user slider width
-                    color: Colors.blueGrey, //use color blue-grey
-                  ),
-                ]),
+                ),
+                Container(
+                  //container for grey
+                  height: position,
+                  //use the calculated height (to hide gradient)
+                  width: sliderWidth,
+                  //user slider width
+                  color: Colors.blueGrey, //use color blue-grey
+                ),
               ]),
-        ),
+            ]),
       ),
     );
   }
 
   Widget commentaireVague() {
-    return Row(
-      children: [
-        Column(
-          children: [
-            Spacer(),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Spacer(),
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Text("c'est pas un\ncompliment"),
-            Spacer(),
+            SvgPicture.asset('assets/image/fleche.svg'),
+          ]),
+          Spacer(),
+          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Text("Sortez"),
-            Spacer(),
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          // mainAxisSize: MainAxisSize.min,
-          children: [],
-        ),
-      ],
+            SvgPicture.asset('assets/image/fleche.svg'),
+          ]),
+          Spacer(),
+        ],
+      ),
     );
   }
 
   Widget humourAlexis() {
     dottedLineWidth = sliderHeight / 100;
-    return Padding(
-      padding: EdgeInsets.only(top: (sliderHeight / 2) - (dottedLineWidth / 2)),
+    return Align(
+      alignment: Alignment.center,
       child: DottedLine(
-        dashGapLength: dottedLineWidth * 0.9,
+        dashGapLength: dottedLineWidth,
         lineThickness: dottedLineWidth,
         lineLength: sliderWidth,
       ),
