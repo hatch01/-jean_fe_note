@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jean_fe_note/front/newUser.dart';
 
 import '../back/user.dart';
-import 'note_edition.dart';
+import 'noteEditor/note_edition.dart';
 
 double sliderValue = 0;
 double screenHeight = 0;
