@@ -4,7 +4,7 @@ import 'package:jean_fe_note/back/user.dart';
 import 'package:jean_fe_note/front/init.dart';
 
 import 'newUser.dart';
-import 'noteEditor/note_edition.dart';
+import 'note_edition.dart';
 
 class NameDrawer extends StatelessWidget {
   @override
