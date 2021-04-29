@@ -63,11 +63,11 @@ class _NoteEditorState extends State<NoteEditor> {
 
   @override
   Widget build(BuildContext context) {
-    sliderWidth = screenWidth / 4; //calculate the width of slider
-    sliderHeight = screenHeight * 0.9;
     screenWidth = MediaQuery.of(context).size.width; //store the width of screen
     screenHeight = MediaQuery.of(context).size.height -
         Scaffold.of(context).appBarMaxHeight; //store the height of screen
+    sliderWidth = screenWidth / 4; //calculate the width of slider
+    sliderHeight = screenHeight * 0.9;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,43 +125,47 @@ class _NoteEditorState extends State<NoteEditor> {
     position = StorageService()
         .getNote(username); //begin with the position in the storage
 //initialise the value of the slider to the stored value
-    return ClipRRect(
-      //user cliprect to reound slider
-      borderRadius: BorderRadius.vertical(
-          top: Radius.circular(180), bottom: Radius.circular(180)),
-      //let's round it
-      child: GestureDetector(
-        //gesture detectore to get the interaction
-        onVerticalDragStart: _onVerticalDragStartHandler,
-        //func to start when vertical drag start
-        onVerticalDragUpdate: _onDragUpdateHandler,
-        //func to start when vertical drag update
-        child: Column(
-            //suer column to define the size of the slier for the ClipRRect
-            mainAxisSize: MainAxisSize.min,
-            //use min size to ensure no bug with ClipRRect
-            children: [
-              Stack(children: [
-                //stack grey and gradient
-                Container(
-                  //container for gradient
-                  height: sliderHeight, //max height
-                  width: sliderWidth, //slider width
-                  decoration: BoxDecoration(
-                    //decoration to integrate gradient
-                    gradient: customGradient(), //the gradient
+    return SizedBox(
+      width: sliderWidth,
+      height: sliderHeight,
+      child: ClipRRect(
+        //user cliprect to reound slider
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(180), bottom: Radius.circular(180)),
+        //let's round it
+        child: GestureDetector(
+          //gesture detectore to get the interaction
+          onVerticalDragStart: _onVerticalDragStartHandler,
+          //func to start when vertical drag start
+          onVerticalDragUpdate: _onDragUpdateHandler,
+          //func to start when vertical drag update
+          child: Column(
+              //suer column to define the size of the slier for the ClipRRect
+              mainAxisSize: MainAxisSize.min,
+              //use min size to ensure no bug with ClipRRect
+              children: [
+                Stack(children: [
+                  //stack grey and gradient
+                  Container(
+                    //container for gradient
+                    height: sliderHeight, //max height
+                    width: sliderWidth, //slider width
+                    decoration: BoxDecoration(
+                      //decoration to integrate gradient
+                      gradient: customGradient(), //the gradient
+                    ),
                   ),
-                ),
-                Container(
-                  //container for grey
-                  height: position,
-                  //use the calculated height (to hide gradient)
-                  width: sliderWidth,
-                  //user slider width
-                  color: Colors.blueGrey, //use color blue-grey
-                ),
+                  Container(
+                    //container for grey
+                    height: position,
+                    //use the calculated height (to hide gradient)
+                    width: sliderWidth,
+                    //user slider width
+                    color: Colors.blueGrey, //use color blue-grey
+                  ),
+                ]),
               ]),
-            ]),
+        ),
       ),
     );
   }
