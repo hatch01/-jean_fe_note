@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jean_fe_note/back/user.dart';
 
-import 'note_edition.dart';
+import 'note_editing/noteEditingScreen.dart';
 
 // ignore: must_be_immutable
 class NewUser extends StatelessWidget {

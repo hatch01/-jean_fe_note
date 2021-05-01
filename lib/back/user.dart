@@ -94,7 +94,7 @@ class StorageService {
     //func to get the note of a person
     if (userExist(user)) {
       //if the user exist
-      return invertNote(_pref.getDouble(user)); //return his note
+      return _pref.getDouble(user); //return his note
     } else {
       //if the user doesn't exist
       print("user does not exist"); //debug
