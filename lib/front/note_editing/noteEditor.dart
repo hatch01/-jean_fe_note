@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:jean_fe_note/front/note_editing/commentaireStatique.dart';
 
 import '../frontSharedValue.dart';
-import 'commentaireDynamique.dart';
+import 'alexis.dart';
+import 'echelle.dart';
+import 'fleche.dart';
 import 'noteEditorSharedValue.dart';
 import 'noteSlider.dart';
+import 'safe.dart';
 
 class NoteEditor extends StatelessWidget {
-  final String username;
-
-  NoteEditor(this.username); //user name transmission
-
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width; //store the width of screen
@@ -27,24 +25,26 @@ class NoteEditor extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(
-                  width: (screenWidth / 2) - (sliderWidth / 2),
-                  child: Echelle()),
+                width: (screenWidth / 2) - (sliderWidth / 2),
+                child: Echelle(),
+              ),
               SizedBox(
                 width: sliderWidth,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Safe(key: myKey,),
+                    Safe(),
                     Stack(
                       alignment: AlignmentDirectional.center,
                       children: [
-                        NoteSlider(username),
+                        NoteSlider(),
                         AlexisDottedLine(),
                       ],
                     ),
                   ],
                 ),
               ),
+              BarreEchelle(),
               HumourAlexis(),
             ],
           ),

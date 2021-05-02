@@ -1,7 +1,6 @@
-import 'commentaireDynamique.dart';
-
 double sliderWidth;
 double sliderHeight;
-Safe safe = Safe();
 String sharedUserName;
+Duration animationDuration = Duration(milliseconds: 100);
+double longBarWidth;
 // final GlobalKey<SafeState> safeState = GlobalKey();

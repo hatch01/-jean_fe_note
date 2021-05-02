@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:jean_fe_note/front/note_editing/commentaireDynamique.dart';
 
 import '../../back/user.dart';
+import 'fleche.dart';
 import 'noteEditorSharedValue.dart';
+import 'safe.dart';
 
 class NoteSlider extends StatefulWidget {
-  final String username; //user name transmission
 
-  NoteSlider(this.username); //user name transmission
   @override
-  _NoteSliderState createState() => _NoteSliderState(username);
+  _NoteSliderState createState() => _NoteSliderState();
 }
 
 class _NoteSliderState extends State<NoteSlider> {
-  String username; //user name transmission
 
-  _NoteSliderState(this.username); //user name transmission
   double previousDYPoint = 0; //a var to store the Y postition before movement
   double position = 0.0; //var to store the position of the slider
   @override
   Widget build(BuildContext context) {
-    position = StorageService().invertNote(StorageService().getNote(username)) *
+    position = StorageService().invertNote(StorageService().getNote(sharedUserName)) *
         sliderHeight; //begin with the position in the storage
-    print("note : " + StorageService().getNote(username).toString());
+    print("note : " + StorageService().getNote(sharedUserName).toString());
 //initialise the value of the slider to the stored value
     return SizedBox(
       width: sliderWidth,
@@ -103,9 +100,10 @@ class _NoteSliderState extends State<NoteSlider> {
         position.clamp(0.0, sliderHeight); //clamp to don't overflow the slider
     previousDYPoint = actualDYPoint; //update the previous the position
     StorageService().setNote(
-        username, position / sliderHeight); //write the value in the database
+        sharedUserName, position / sliderHeight); //write the value in the database
 
-    myKey.currentState.setState(() {});
+    safeKey.currentState.setState(() {});
+    echelleKey.currentState.setState(() {});
     setState(() {});
   }
 }

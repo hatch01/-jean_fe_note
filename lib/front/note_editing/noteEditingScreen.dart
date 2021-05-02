@@ -25,7 +25,7 @@ class NoteEditingScreen extends StatelessWidget {
         //define the body
         mainAxisAlignment: MainAxisAlignment.center, //center horizontally
         children: [
-          NoteEditor(username), //draw the note slider
+          NoteEditor(), //draw the note slider
         ],
       ),
     );
