@@ -45,7 +45,7 @@ class NoteEditor extends StatelessWidget {
                 ),
               ),
               BarreEchelle(),
-              HumourAlexis(),
+              // HumourAlexis(),
             ],
           ),
         ),

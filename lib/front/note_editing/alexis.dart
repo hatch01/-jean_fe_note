@@ -34,9 +34,7 @@ class _HumourAlexisState extends State<HumourAlexis> {
         child: Text(
           "Humour\nd'Alexis",
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+
         ),
       ),
     );

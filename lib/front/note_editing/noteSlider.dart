@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
 import '../../back/user.dart';
+import 'echelle.dart';
 import 'fleche.dart';
 import 'noteEditorSharedValue.dart';
 import 'safe.dart';
 
 class NoteSlider extends StatefulWidget {
-
   @override
   _NoteSliderState createState() => _NoteSliderState();
 }
 
 class _NoteSliderState extends State<NoteSlider> {
-
   double previousDYPoint = 0; //a var to store the Y postition before movement
   double position = 0.0; //var to store the position of the slider
   @override
   Widget build(BuildContext context) {
-    position = StorageService().invertNote(StorageService().getNote(sharedUserName)) *
-        sliderHeight; //begin with the position in the storage
+    position =
+        StorageService().invertNote(StorageService().getNote(sharedUserName)) *
+            sliderHeight; //begin with the position in the storage
     print("note : " + StorageService().getNote(sharedUserName).toString());
 //initialise the value of the slider to the stored value
     return SizedBox(
@@ -99,11 +99,12 @@ class _NoteSliderState extends State<NoteSlider> {
     position =
         position.clamp(0.0, sliderHeight); //clamp to don't overflow the slider
     previousDYPoint = actualDYPoint; //update the previous the position
-    StorageService().setNote(
-        sharedUserName, position / sliderHeight); //write the value in the database
+    StorageService().setNote(sharedUserName,
+        position / sliderHeight); //write the value in the database
 
     safeKey.currentState.setState(() {});
     echelleKey.currentState.setState(() {});
+    barreEchelleKey.currentState.setState(() {});
     setState(() {});
   }
 }
