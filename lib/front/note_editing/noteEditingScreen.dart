@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jean_fe_note/front/note_editing/noteEditorSharedValue.dart';
 
 import '../nameDrawer.dart';
+import 'danger.dart';
 import 'noteEditor.dart';
 
 class NoteEditingScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class NoteEditingScreen extends StatelessWidget {
   NoteEditingScreen(this.username); //initializer
   @override
   Widget build(BuildContext context) {
-    sharedUserName=username;
+    sharedUserName = username;
     return Scaffold(
       //scaffold because it's the root of the app
       drawer: Drawer(
@@ -21,13 +22,17 @@ class NoteEditingScreen extends StatelessWidget {
         //define the app bar
         title: Text(username), //just put the name of the person
       ),
-      body: Row(
-        //define the body
-        mainAxisAlignment: MainAxisAlignment.center, //center horizontally
-        children: [
-          NoteEditor(), //draw the note slider
-        ],
-      ),
+      body: Stack(children: [
+        Danger(),
+        Row(
+          //define the body
+          mainAxisAlignment: MainAxisAlignment.center, //center horizontally
+          children: [
+            //draw the note slider
+            NoteEditor(),
+          ],
+        ),
+      ]),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../back/user.dart';
+import 'danger.dart';
 import 'echelle.dart';
 import 'fleche.dart';
 import 'noteEditorSharedValue.dart';
@@ -105,6 +106,7 @@ class _NoteSliderState extends State<NoteSlider> {
     safeKey.currentState.setState(() {});
     echelleKey.currentState.setState(() {});
     barreEchelleKey.currentState.setState(() {});
+    dangerKey.currentState.setState(() {});
     setState(() {});
   }
 }

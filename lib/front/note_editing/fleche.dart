@@ -14,17 +14,17 @@ class Echelle extends StatefulWidget {
 }
 
 class _EchelleState extends State<Echelle> {
-  double opacitySortez = 0.5;
-  double opacityPasCompliment = 0.5;
+  double opacitySortez = 0.0;
+  double opacityPasCompliment = 0.0;
 
   @override
   Widget build(BuildContext context) {
     if (StorageService().getNote(sharedUserName) >= 0.5) {
-      opacitySortez = 0.5;
+      opacitySortez = 0.0;
       opacityPasCompliment = 1;
     } else {
       opacitySortez = 1;
-      opacityPasCompliment = 0.5;
+      opacityPasCompliment = 0.0;
     }
 
     return Padding(
@@ -33,23 +33,23 @@ class _EchelleState extends State<Echelle> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Spacer(),
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            AnimatedOpacity(
-              child: Text("c'est pas un\ncompliment"),
-              opacity: opacityPasCompliment,
-              duration: animationDuration,
-            ),
-            SvgPicture.asset('assets/image/fleche.svg'),
-          ]),
+          AnimatedOpacity(
+            opacity: opacityPasCompliment,
+            duration: animationDuration,
+            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Text("c'est pas un\ncompliment"),
+              SvgPicture.asset('assets/image/fleche.svg'),
+            ]),
+          ),
           Spacer(),
-          Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            AnimatedOpacity(
-              child: Text("Sortez"),
-              opacity: opacitySortez,
-              duration: animationDuration,
-            ),
-            SvgPicture.asset('assets/image/fleche.svg'),
-          ]),
+          AnimatedOpacity(
+            opacity: opacitySortez,
+            duration: animationDuration,
+            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              Text("Sortez"),
+              SvgPicture.asset('assets/image/fleche.svg'),
+            ]),
+          ),
           Spacer(),
         ],
       ),

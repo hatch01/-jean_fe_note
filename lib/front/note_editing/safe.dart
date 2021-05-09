@@ -7,13 +7,14 @@ GlobalKey<_SafeState> safeKey = GlobalKey();
 
 class Safe extends StatefulWidget {
   // const Safe({Key key}) : super(key: key);
-  Key key=safeKey;
+  Key key = safeKey;
+
   @override
   _SafeState createState() => _SafeState();
 }
 
 class _SafeState extends State<Safe> {
-  double opacity = 0.5;
+  double opacity = 0.0;
   Color couleur = Colors.black;
 
   @override
@@ -23,7 +24,7 @@ class _SafeState extends State<Safe> {
       opacity = 1;
     } else {
       couleur = Colors.blueGrey;
-      opacity = 0.5;
+      opacity = 0.0;
     }
     return AnimatedOpacity(
       child: Text(

@@ -19,44 +19,44 @@ class _BarreEchelleState extends State<BarreEchelle> {
     longBarWidth = screenWidth / 20;
     double shortBarWidth = screenWidth / 35;
     double barreHeight = screenHeight / 100;
-    List<double> opacity = [0.5, 0.5, 0.5, 0.5, 0.5];
+    List<double> opacity = [0.0, 0.0, 0.0, 0.0, 0.0];
     List<Widget> listBarre = [Spacer(), Spacer()];
     double note = StorageService().getNote(sharedUserName);
     print("note: $note");
     if (note > 0.8) {
       print("1");
       opacity[0] = 1;
-      opacity[1] = 0.5;
-      opacity[2] = 0.5;
-      opacity[3] = 0.5;
-      opacity[4] = 0.5;
+      opacity[1] = 0.0;
+      opacity[2] = 0.0;
+      opacity[3] = 0.0;
+      opacity[4] = 0.0;
     } else if (note > 0.6) {
       print("2");
-      opacity[0] = 0.5;
+      opacity[0] = 0.0;
       opacity[1] = 1;
-      opacity[2] = 0.5;
-      opacity[3] = 0.5;
-      opacity[4] = 0.5;
+      opacity[2] = 0.0;
+      opacity[3] = 0.0;
+      opacity[4] = 0.0;
     } else if (note > 0.4) {
       print("3");
-      opacity[0] = 0.5;
-      opacity[1] = 0.5;
+      opacity[0] = 0.0;
+      opacity[1] = 0.0;
       opacity[2] = 1;
-      opacity[3] = 0.5;
-      opacity[4] = 0.5;
+      opacity[3] = 0.0;
+      opacity[4] = 0.0;
     } else if (note > 0.2) {
       print("4");
-      opacity[0] = 0.5;
-      opacity[1] = 0.5;
-      opacity[2] = 0.5;
+      opacity[0] = 0.0;
+      opacity[1] = 0.0;
+      opacity[2] = 0.0;
       opacity[3] = 1;
-      opacity[4] = 0.5;
+      opacity[4] = 0.0;
     } else if (note > 0.0) {
       print("5");
-      opacity[0] = 0.5;
-      opacity[1] = 0.5;
-      opacity[2] = 0.5;
-      opacity[3] = 0.5;
+      opacity[0] = 0.0;
+      opacity[1] = 0.0;
+      opacity[2] = 0.0;
+      opacity[3] = 0.0;
       opacity[4] = 1;
     }
     List<Widget> text = [
