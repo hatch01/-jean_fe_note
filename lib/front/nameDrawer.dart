@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jean_fe_note/back/user.dart';
-import 'package:jean_fe_note/front/init.dart';
 
+import 'frontSharedValue.dart';
 import 'newUser.dart';
-import 'note_edition.dart';
+import 'note_editing/noteEditingScreen.dart';
 
 class NameDrawer extends StatelessWidget {
   @override
@@ -99,8 +99,7 @@ class NameDrawer extends StatelessWidget {
             showDialog(
               //display pop-up
               context: context,
-              builder: (BuildContext context) =>
-                  NewUser(), //create new user
+              builder: (BuildContext context) => NewUser(), //create new user
             );
           },
         ),
@@ -163,8 +162,8 @@ class NameDrawer extends StatelessWidget {
                 //display pop-up to create new user
               }
             },
-            child: Text("oui"),//the content of the button
-            color: Colors.red,//the color of the button
+            child: Text("oui"), //the content of the button
+            color: Colors.red, //the color of the button
           ),
         ],
       ),

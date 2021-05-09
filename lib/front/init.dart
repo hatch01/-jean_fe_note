@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jean_fe_note/front/newUser.dart';
 
 import '../back/user.dart';
-import 'note_edition.dart';
-
-double sliderValue = 0;
-double screenHeight = 0;
-double appbarHeight = 0;
-double screenWidth = 0.0;
+import 'note_editing/noteEditingScreen.dart';
 
 class Init extends StatelessWidget {
   @override

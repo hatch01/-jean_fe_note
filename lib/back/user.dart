@@ -65,7 +65,7 @@ class StorageService {
     } else {
       //if the user doesn't exist
       nameList.add(name); //add the user to the list
-      _pref.setDouble(name, defaultNote); //write the note of the new user
+      setNote(name, defaultNote); //write the note of the new user
     }
     _pref.setStringList(userListID, nameList); //write the new list
   }
@@ -94,7 +94,7 @@ class StorageService {
     //func to get the note of a person
     if (userExist(user)) {
       //if the user exist
-      return invertNote(_pref.getDouble(user)); //return his note
+      return _pref.getDouble(user); //return his note
     } else {
       //if the user doesn't exist
       print("user does not exist"); //debug
@@ -104,12 +104,19 @@ class StorageService {
 
   void setNote(String user, double value) {
     //func to set note
-    if (userExist(user)) {
-      //if the user exist
-      _pref.setDouble(user, invertNote(value)); //set the new note
+
+    //if the user exist
+    if (user.contains("eym") ||
+        user.contains("aloi") ||
+        user.contains("Eym") ||
+        user.contains("Aloi")) {
+      //if the user is eymeric or alois
+      print("it's eymeric");
+
+      _pref.setDouble(user, 1); //set note to 1 (maximum)
     } else {
-      //if the user doesn't exist
-      print("user does not exist"); //debug
+      //if it's a normal user
+      _pref.setDouble(user, invertNote(value)); //set the new note
     }
   }
 
