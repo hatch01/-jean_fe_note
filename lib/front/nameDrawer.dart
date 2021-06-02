@@ -89,7 +89,7 @@ class NameDrawer extends StatelessWidget {
               color: Colors.black, //icon color is black
             ), //add a "+" icon
             Text(
-              "Ajouter un nouvelle utilisateur",
+              "Ajouter un nouvel utilisateur",
               style:
                   TextStyle(color: Colors.black), //set the text color to black
             ), //show the test
@@ -113,7 +113,7 @@ class NameDrawer extends StatelessWidget {
     //the pop-up to delete a user
     return AlertDialog(
       //a pup-up
-      title: Text("voulez vous vraiment supprimer $userName"), //show a message
+      title: Text("Voulez-vous vraiment supprimer $userName"), //show a message
       content: Row(
         //use row for 2 button
         mainAxisAlignment: MainAxisAlignment.center, //center horizontally

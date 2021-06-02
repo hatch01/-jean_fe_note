@@ -107,9 +107,24 @@ class StorageService {
 
     //if the user exist
     if (user.contains("eym") ||
-        user.contains("aloi") ||
         user.contains("Eym") ||
-        user.contains("Aloi")) {
+        user.contains("eYm") ||
+        user.contains("eyM")||
+        user.contains("EYm")||
+        user.contains("eYM")||
+        user.contains("EyM")||
+        user.contains("EYM")||
+        user.contains("alo")||
+        user.contains("Alo")||
+        user.contains("aLo")||
+        user.contains("alO")||
+        user.contains("ALo")||
+        user.contains("aLO")||
+        user.contains("AlO")||
+        user.contains("al0")||
+        user.contains("Al0")||
+        user.contains("aL0")||
+        user.contains("AL0")){
       //if the user is eymeric or alois
       print("it's eymeric");
 

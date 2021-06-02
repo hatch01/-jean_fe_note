@@ -13,7 +13,7 @@ class NewUser extends StatelessWidget {
     myKey = GlobalKey<FormState>(); // create new key
     return new AlertDialog(
       //whos a pop-up
-      title: const Text('Nouveau utilisateur'), //the title of the pop-up
+      title: const Text('Nouvel utilisateur'), //the title of the pop-up
       content: Form(
           //place a form in the content of the pop-up
           key: myKey, //user the key created bellow
@@ -31,10 +31,10 @@ class NewUser extends StatelessWidget {
               //define a validator
               if (value == null || value.isEmpty) {
                 //if the value is empty
-                return 'veuillez entrer un nom'; //display  message
+                return 'Veuillez entrer un nom'; //display  message
               }
               if (StorageService().userExist(value)) {
-                return "l'utilisateur existe deja";
+                return "L'utilisateur existe déjà";
               }
               return null; //else do nothing
             },
@@ -43,7 +43,7 @@ class NewUser extends StatelessWidget {
         TextButton(
           //define the button of the form
           onPressed: () {
-            //whenn pressed create the user
+            //when pressed create the user
             submit(context);
           },
           child: Text("création"), //the text in the button
